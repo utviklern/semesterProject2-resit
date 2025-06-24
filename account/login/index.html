@@ -3,35 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <title>Login | Petlify</title>
-  <script type="module" src="./login.js" defer></script>
   <link href="/src/styles/main.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <script type="module" src="/src/components/navbar.js" defer></script>
+  <script type="module" src="/src/components/footer.js" defer></script>
+  <script type="module" src="./login.js" defer></script>
+  <script type="module">
+    import { renderNavbar } from '/src/components/navbar.js';
+    import { renderFooter } from '/src/components/footer.js';
+    renderNavbar({ mobile: true });
+    renderFooter();
+  </script>
 </head>
 <body class="bg-beige min-h-screen flex flex-col">
-  <!-- header -->
-  <header class="bg-light py-2 px-4 flex items-center justify-between">
-    <div class="flex items-center gap-2">
-      <span class="text-xl font-roboto">Petlify logo</span>
-      <span class="text-2xl font-bold text-primary font-roboto">Petlify</span>
-    </div>
-    <nav class="flex gap-12">
-      <a href="/" class="text-primary text-lg hover:text-accent font-roboto">Home</a>
-      <a href="/account/login/index.html" class="text-primary text-lg hover:text-accent font-roboto">Login</a>
-    </nav>
-  </header>
-
-  <!-- main content -->
-  <main class="flex-1 flex flex-col items-center justify-center">
-    <div class="bg-white rounded-xl shadow-md p-8 w-full max-w-md mt-8">
+  <div id="navbar-root"></div>
+  <!-- Main content -->
+  <main class="flex-1 flex flex-col items-center justify-center px-2">
+    <div class="bg-white rounded-2xl shadow-md p-8 w-full max-w-md mt-8">
       <h1 class="text-3xl font-light mb-6 text-center text-primary font-poppins">Login or register</h1>
       <form id="loginForm" class="flex flex-col gap-4">
         <label class="text-base text-primary font-roboto">E-mail
-          <input type="email" id="email" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="email" id="email" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">Password
-          <input type="password" id="password" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="password" id="password" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
-        <button type="submit" class="bg-accent text-white rounded-full py-2 mt-2 hover:bg-secondary transition font-roboto">Login</button>
+        <button type="submit" class="bg-accent text-white rounded-full py-2 mt-2 hover:bg-secondary transition font-roboto text-lg">Login</button>
         <div id="error" class="text-red-500 text-center text-sm font-roboto"></div>
       </form>
       <p class="text-center mt-4 text-sm text-primary font-roboto">
@@ -39,16 +36,6 @@
       </p>
     </div>
   </main>
-
-  <!-- footer -->
-  <footer class="bg-light py-6 mt-12">
-    <div class="max-w-4xl mx-auto flex justify-between items-center px-4 text-primary font-roboto">
-      <span>55321229</span>
-      <span class="text-xl">Contact us</span>
-      <span>pets@petlify.no</span>
-    </div>
-  </footer>
-
-
+  <div id="footer-root"></div>
 </body>
 </html> 
