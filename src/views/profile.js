@@ -1,7 +1,7 @@
 import { showModal } from '../components/modal.js';
 import { getToken } from '../services/auth.js';
 
-export function renderProfile() {
+export async function renderProfile() {
   // redirect to login if not authenticated
   if (!getToken()) {
     showModal('You must be logged in to view your profile.');
@@ -22,7 +22,15 @@ export function renderProfile() {
       return;
     }
 
-    // render avatar, name, bio, and create post button
+    // fetch all pets
+    const { API_KEY } = await import('../services/config.js');
+    const petsRes = await fetch('https://v2.api.noroff.dev/pets', {
+      headers: { 'X-Noroff-API-Key': API_KEY }
+    });
+    const petsData = await petsRes.json();
+    const myPets = petsData.data.filter(pet => pet.owner?.email === user.email);
+
+    // render avatar, name, bio, create post button, and user's pets
     app.innerHTML = `
       <div class="flex flex-col items-center w-full">
         <h1 class="text-3xl font-poppins mb-6 mt-4">Profile</h1>
@@ -30,6 +38,15 @@ export function renderProfile() {
         <div class="text-2xl font-poppins mb-2">${user.name}</div>
         <div class="text-base font-roboto text-gray-700 mb-4">${user.bio || ''}</div>
         <button id="createPostBtn" class="bg-accent text-white rounded-full py-2 px-8 mb-8 font-roboto text-lg hover:bg-secondary transition">Create post</button>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+          ${myPets.length === 0 ? `<div class='col-span-3 text-center text-gray-400 font-roboto'>No posts yet.</div>` : myPets.map(pet => `
+            <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center">
+              <img src="${pet.image?.url || 'https://placehold.co/200x160?text=Pet'}" alt="${pet.image?.alt || pet.name}" class="w-full h-40 object-cover rounded-xl mb-2" />
+              <div class="font-roboto text-lg mb-2">${pet.name}</div>
+              <button onclick="window.location.hash='#/pet/edit/${pet.id}'" class="bg-accent text-white rounded-full py-2 px-6 font-roboto hover:bg-secondary transition">Edit post</button>
+            </div>
+          `).join('')}
+        </div>
       </div>
     `;
 
