@@ -40,10 +40,12 @@ export async function renderProfile() {
         <button id="createPostBtn" class="bg-accent text-white rounded-full py-2 px-8 mb-8 font-roboto text-lg hover:bg-secondary transition">Create post</button>
         <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
           ${myPets.length === 0 ? `<div class='col-span-3 text-center text-gray-400 font-roboto'>No posts yet.</div>` : myPets.map(pet => `
-            <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center">
-              <img src="${pet.image?.url || 'https://placehold.co/200x160?text=Pet'}" alt="${pet.image?.alt || pet.name}" class="w-full h-40 object-cover rounded-xl mb-2" />
-              <div class="font-roboto text-lg mb-2">${pet.name}</div>
-              <button onclick="window.location.hash='#/pet/edit/${pet.id}'" class="bg-accent text-white rounded-full py-2 px-6 font-roboto hover:bg-secondary transition">Edit post</button>
+            <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center cursor-pointer">
+              <a href="#/pet/${pet.id}" class="block w-full h-full text-inherit no-underline">
+                <img src="${pet.image?.url || 'https://placehold.co/200x160?text=Pet'}" alt="${pet.image?.alt || pet.name}" class="w-full h-40 object-cover rounded-xl mb-2" />
+                <div class="font-roboto text-lg mb-2">${pet.name}</div>
+              </a>
+              <button onclick="window.location.hash='#/pet/edit/${pet.id}'" class="bg-accent text-white rounded-full py-2 px-6 font-roboto hover:bg-secondary transition mt-2">Edit post</button>
             </div>
           `).join('')}
         </div>
