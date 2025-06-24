@@ -38,7 +38,7 @@ export async function renderProfile() {
         <div class="text-2xl font-poppins mb-2">${user.name}</div>
         <div class="text-base font-roboto text-gray-700 mb-4">${user.bio || ''}</div>
         <button id="createPostBtn" class="bg-accent text-white rounded-full py-2 px-8 mb-8 font-roboto text-lg hover:bg-secondary transition">Create post</button>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl">
+        <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-4xl">
           ${myPets.length === 0 ? `<div class='col-span-3 text-center text-gray-400 font-roboto'>No posts yet.</div>` : myPets.map(pet => `
             <div class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center">
               <img src="${pet.image?.url || 'https://placehold.co/200x160?text=Pet'}" alt="${pet.image?.alt || pet.name}" class="w-full h-40 object-cover rounded-xl mb-2" />

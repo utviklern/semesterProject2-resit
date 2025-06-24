@@ -154,7 +154,7 @@ export function renderPetCreate() {
       // success
       showModal('Pet created successfully!');
       setTimeout(() => {
-        window.location.hash = '#/';
+        window.location.hash = '#/profile';
       }, 1200);
     } catch (err) {
       showModal('Failed to create pet. Try again.');
