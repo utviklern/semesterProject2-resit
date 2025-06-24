@@ -1,4 +1,5 @@
 import { renderNavbar, removeNavbar } from '../components/navbar.js';
+import { showModal } from '../components/modal.js';
 
 export function renderLogin() {
   const app = document.getElementById('app');
@@ -40,7 +41,7 @@ export function renderLogin() {
         renderNavbar();
         window.location.hash = '#/';
       } catch (err) {
-        errorDiv.textContent = 'Invalid email or password!';
+        showModal('Invalid email or password!');
       }
     });
   }
