@@ -15,22 +15,22 @@ export function renderNavbar() {
     </button>
     <div id="mobileMenu" class="fixed top-0 right-0 h-full w-1/2 min-w-[200px] bg-beige bg-opacity-95 flex flex-col items-center justify-center hidden md:hidden z-40 shadow-lg">
       <ul class="flex flex-col gap-16 items-center justify-center h-full">
-        <li><a href="/" class="text-primary text-2xl font-roboto">Home</a></li>
+        <li><a href="#/" class="text-primary text-2xl font-roboto">Home</a></li>
         ${isLoggedIn() ? `
-          <li><a href="/profile/index.html" class="text-primary text-2xl font-roboto">Profile</a></li>
+          <li><a href="#/profile" class="text-primary text-2xl font-roboto">Profile</a></li>
           <li><button id="logoutBtnMobile" class="text-primary text-2xl font-roboto">Logout</button></li>
         ` : `
-          <li><a href="/account/login/index.html" class="text-primary text-2xl font-roboto">Login</a></li>
+          <li><a href="#/account/login" class="text-primary text-2xl font-roboto">Login</a></li>
         `}
       </ul>
     </div>
     <ul id="navLinks" class="hidden md:flex flex-1 justify-center md:gap-32 gap-12 items-center">
-      <li class="my-4 md:my-0"><a href="/" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Home</a></li>
+      <li class="my-4 md:my-0"><a href="#/" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Home</a></li>
       ${isLoggedIn() ? `
-        <li class="my-4 md:my-0"><a href="/profile/index.html" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Profile</a></li>
+        <li class="my-4 md:my-0"><a href="#/profile" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Profile</a></li>
         <li class="my-4 md:my-0"><button id="logoutBtn" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Logout</button></li>
       ` : `
-        <li class="my-4 md:my-0"><a href="/account/login/index.html" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Login</a></li>
+        <li class="my-4 md:my-0"><a href="#/account/login" class="text-primary text-lg md:text-2xl font-roboto block py-4 md:py-0 text-center">Login</a></li>
       `}
     </ul>
   `;
@@ -63,15 +63,24 @@ export function renderNavbar() {
     if (logoutBtn) {
       logoutBtn.onclick = () => {
         logout();
-        window.location.href = '/';
+        removeNavbar();
+        renderNavbar();
+        window.location.hash = '#/account/login';
       };
     }
     const logoutBtnMobile = nav.querySelector('#logoutBtnMobile');
     if (logoutBtnMobile) {
       logoutBtnMobile.onclick = () => {
         logout();
-        window.location.href = '/';
+        removeNavbar();
+        renderNavbar();
+        window.location.hash = '#/account/login';
       };
     }
   }
+}
+
+export function removeNavbar() {
+  const nav = document.querySelector('nav');
+  if (nav) nav.remove();
 } 
