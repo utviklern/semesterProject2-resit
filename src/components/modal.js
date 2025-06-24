@@ -1,5 +1,5 @@
 export function showModal(message) {
-  // Fjern eksisterende modal hvis den finnes
+  // remove existing modal if it exists
   const existing = document.getElementById('modal-root');
   if (existing) existing.remove();
 
@@ -15,7 +15,7 @@ export function showModal(message) {
   document.body.appendChild(modal);
 
   document.getElementById('closeModal').onclick = () => modal.remove();
-  // Lukk med Escape
+  // close with escape
   modal.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') modal.remove();
   });
