@@ -35,8 +35,15 @@ export function renderLogin() {
       try {
         // import login and saveToken dynamically to avoid circular dependency
         const auth = await import('../services/auth.js');
-        const token = await auth.login(email, password);
-        auth.saveToken(token);
+        const user = await auth.login(email, password);
+        auth.saveToken(user.accessToken);
+        localStorage.setItem('userProfile', JSON.stringify({
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar,
+          banner: user.banner,
+          bio: user.bio 
+        }));
         removeNavbar();
         renderNavbar();
         window.location.hash = '#/';

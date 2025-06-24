@@ -53,5 +53,5 @@ export async function login(email, password) {
     throw new Error('Login failed');
   }
   const data = await response.json();
-  return data.data.accessToken;
+  return data.data;
 } 
