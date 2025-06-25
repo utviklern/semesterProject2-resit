@@ -6,7 +6,9 @@ export function renderNavbar() {
 
   nav.innerHTML = `
     <div class="flex items-center gap-2">
-      <img src="/images/logo.webp" alt="Petlify logo" class="h-14 w-14 md:h-24 md:w-24" />
+      <a href="#/">
+        <img src="/images/logo.webp" alt="Petlify logo" class="h-14 w-14 md:h-24 md:w-24" />
+      </a>
     </div>
     <button id="hamburger" class="md:hidden block focus:outline-none z-50" aria-label="Open menu">
       <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">

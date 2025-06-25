@@ -16,28 +16,38 @@ export function renderPetCreate() {
       <h1 class="text-3xl font-light mb-6 text-center text-primary font-poppins">Create</h1>
       <form id="createPetForm" class="flex flex-col gap-4">
         <label class="text-base text-primary font-roboto">Name
-          <input type="text" id="name" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="name" required maxlength="18" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <div class="text-xs text-right text-gray-400"><span id="nameCount">0</span>/18</div>
         </label>
         <label class="text-base text-primary font-roboto">Species
-          <input type="text" id="species" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="species" required maxlength="18" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <div class="text-xs text-right text-gray-400"><span id="speciesCount">0</span>/18</div>
         </label>
         <label class="text-base text-primary font-roboto">Breed
-          <input type="text" id="breed" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="breed" required maxlength="24" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <div class="text-xs text-right text-gray-400"><span id="breedCount">0</span>/24</div>
         </label>
         <label class="text-base text-primary font-roboto">Age
           <input type="number" id="age" required min="0" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">Gender
-          <input type="text" id="gender" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <select id="gender" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto">
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="unknown">Unknown</option>
+          </select>
         </label>
         <label class="text-base text-primary font-roboto">Size
-          <input type="text" id="size" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="size" required placeholder="23kg" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">Color
-          <input type="text" id="color" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="color" required maxlength="18" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <div class="text-xs text-right text-gray-400"><span id="colorCount">0</span>/18</div>
         </label>
         <label class="text-base text-primary font-roboto">Location
-          <input type="text" id="location" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="location" required maxlength="20" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <div class="text-xs text-right text-gray-400"><span id="locationCount">0</span>/20</div>
         </label>
         <label class="text-base text-primary font-roboto">Adoption Status
           <select id="adoptionStatus" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto">
@@ -47,14 +57,15 @@ export function renderPetCreate() {
           </select>
         </label>
         <label class="text-base text-primary font-roboto">Description
-          <textarea id="description" maxlength="160" rows="3" required class="w-full mt-1 rounded-2xl border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto"></textarea>
-          <div class="text-xs text-right text-gray-400"><span id="descCount">0</span>/160</div>
+          <textarea id="description" maxlength="1000" rows="3" required class="w-full mt-1 rounded-2xl border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto"></textarea>
+          <div class="text-xs text-right text-gray-400"><span id="descCount">0</span>/1000</div>
         </label>
         <label class="text-base text-primary font-roboto">Image URL
           <input type="url" id="imageUrl" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">Alt
           <input type="text" id="imageAlt" required maxlength="120" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <div class="text-xs text-right text-gray-400"><span id="altCount">0</span>/120</div>
         </label>
         <button type="submit" class="bg-accent text-white rounded-full py-2 mt-2 hover:bg-secondary transition font-roboto text-lg">Create post</button>
       </form>
@@ -67,6 +78,55 @@ export function renderPetCreate() {
   if (desc && descCount) {
     desc.addEventListener('input', () => {
       descCount.textContent = desc.value.length;
+    });
+  }
+
+  // character counters
+  const name = document.getElementById('name');
+  const nameCount = document.getElementById('nameCount');
+  if (name && nameCount) {
+    name.addEventListener('input', () => {
+      nameCount.textContent = name.value.length;
+    });
+  }
+
+  const species = document.getElementById('species');
+  const speciesCount = document.getElementById('speciesCount');
+  if (species && speciesCount) {
+    species.addEventListener('input', () => {
+      speciesCount.textContent = species.value.length;
+    });
+  }
+
+  const breed = document.getElementById('breed');
+  const breedCount = document.getElementById('breedCount');
+  if (breed && breedCount) {
+    breed.addEventListener('input', () => {
+      breedCount.textContent = breed.value.length;
+    });
+  }
+
+  const color = document.getElementById('color');
+  const colorCount = document.getElementById('colorCount');
+  if (color && colorCount) {
+    color.addEventListener('input', () => {
+      colorCount.textContent = color.value.length;
+    });
+  }
+
+  const location = document.getElementById('location');
+  const locationCount = document.getElementById('locationCount');
+  if (location && locationCount) {
+    location.addEventListener('input', () => {
+      locationCount.textContent = location.value.length;
+    });
+  }
+
+  const imageAlt = document.getElementById('imageAlt');
+  const altCount = document.getElementById('altCount');
+  if (imageAlt && altCount) {
+    imageAlt.addEventListener('input', () => {
+      altCount.textContent = imageAlt.value.length;
     });
   }
 
@@ -89,7 +149,7 @@ export function renderPetCreate() {
     const imageAlt = document.getElementById('imageAlt').value.trim();
 
     // validation
-    if (!name || !species || !breed || !size || !color || !description || !imageUrl || !imageAlt || !gender || !location) {
+    if (!name || !species || !breed || !color || !description || !imageUrl || !imageAlt || !gender || !location) {
       showModal('All fields are required.');
       return;
     }
@@ -97,8 +157,38 @@ export function renderPetCreate() {
       showModal('Age must be a non-negative number.');
       return;
     }
-    if (description.length > 160) {
-      showModal('Description must be less than 160 characters.');
+    if (size.length === 0) {
+      showModal('Size must be provided.');
+      return;
+    }
+
+    const sizeNumber = parseFloat(size);
+    if (isNaN(sizeNumber) || sizeNumber < 0 || sizeNumber > 200) {
+      showModal('Size must be a number between 0 and 200 kg.');
+      return;
+    }
+    if (name.length > 18) {
+      showModal('Name must be 18 characters or less.');
+      return;
+    }
+    if (species.length > 18) {
+      showModal('Species must be 18 characters or less.');
+      return;
+    }
+    if (breed.length > 24) {
+      showModal('Breed must be 24 characters or less.');
+      return;
+    }
+    if (color.length > 18) {
+      showModal('Color must be 18 characters or less.');
+      return;
+    }
+    if (location.length > 20) {
+      showModal('Location must be 20 characters or less.');
+      return;
+    }
+    if (description.length > 1000) {
+      showModal('Description must be less than 1000 characters.');
       return;
     }
     if (!/^https?:\/\/.+\..+/.test(imageUrl)) {

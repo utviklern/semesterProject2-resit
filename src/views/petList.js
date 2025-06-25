@@ -10,7 +10,7 @@ export async function renderPetList() {
   app.className = "flex-1 flex flex-col items-center justify-center px-2";
   app.innerHTML = `
     <div class="w-full max-w-5xl mx-auto">
-      <img src="/images/headerimg.webp" alt="Header" class="w-full h-64 md:h-96 object-cover rounded-xl mb-6" />
+      <img src="/images/headerimg.JPG" alt="Header" class="w-full h-[70vh] object-cover rounded-xl mb-6" />
       <div class="flex justify-center mb-6">
         <input id="searchInput" type="text" placeholder="search" class="w-full max-w-md rounded-full border border-secondary px-4 py-2 text-center text-xl font-poppins text-gray-400" />
       </div>
@@ -75,11 +75,11 @@ export async function renderPetList() {
       card.className = "bg-white rounded-2xl shadow-md p-4 flex flex-col items-center cursor-pointer";
       card.innerHTML = `
         <a href="#/pet/${pet.id}" class="block w-full h-full text-inherit no-underline">
-          <img src="${pet.image?.url || 'https://placehold.co/200x160?text=Pet'}" alt="${pet.image?.alt || pet.name}" class="w-full h-32 object-cover rounded-xl mb-2" />
-          <div class="font-poppins text-lg mb-1">${pet.name}</div>
-          <div class="font-roboto text-sm text-gray-700 mb-1">Species: ${pet.species || '-'}</div>
-          <div class="font-roboto text-sm text-gray-700 mb-1">Breed: ${pet.breed || '-'}</div>
-          <div class="font-roboto text-sm text-gray-700">Age: ${pet.age || '-'}</div>
+          <img src="${pet.image?.url || 'https://sdmntprnortheu.oaiusercontent.com/files/00000000-a1c0-61f4-9943-2034ad1a4a5f/raw?se=2025-06-25T13%3A49%3A55Z&sp=r&sv=2024-08-04&sr=b&scid=58544d5a-bfec-54fd-bd31-80cb3d66d8c3&skoid=82a3371f-2f6c-4f81-8a78-2701b362559b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-06-25T05%3A54%3A54Z&ske=2025-06-26T05%3A54%3A54Z&sks=b&skv=2024-08-04&sig=bxA1cA5x4nqdPlOQlgI5W%2BdbkX2Ija60j9D7mrmGgDU%3D'}" alt="${pet.image?.alt || pet.name}" class="w-full h-32 object-cover rounded-xl mb-2" />
+          <div class="font-poppins text-lg mb-1 truncate w-full text-center">${pet.name}</div>
+          <div class="font-roboto text-sm text-gray-700 mb-1 truncate w-full text-center">Species: ${pet.species || '-'}</div>
+          <div class="font-roboto text-sm text-gray-700 mb-1 truncate w-full text-center">Breed: ${pet.breed || '-'}</div>
+          <div class="font-roboto text-sm text-gray-700 text-center">Age: ${pet.age || '-'}</div>
         </a>
       `;
       grid.appendChild(card);

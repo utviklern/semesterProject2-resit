@@ -28,28 +28,38 @@ export async function renderPetEdit(id) {
         <h1 class="text-3xl font-light mb-6 text-center text-primary font-poppins">Edit</h1>
         <form id="editPetForm" class="flex flex-col gap-4">
           <label class="text-base text-primary font-roboto">Name
-            <input type="text" id="name" value="${pet.name || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <input type="text" id="name" value="${pet.name || ''}" required maxlength="18" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <div class="text-xs text-right text-gray-400"><span id="nameCount">${pet.name?.length || 0}</span>/18</div>
           </label>
           <label class="text-base text-primary font-roboto">Species
-            <input type="text" id="species" value="${pet.species || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <input type="text" id="species" value="${pet.species || ''}" required maxlength="18" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <div class="text-xs text-right text-gray-400"><span id="speciesCount">${pet.species?.length || 0}</span>/18</div>
           </label>
           <label class="text-base text-primary font-roboto">Breed
-            <input type="text" id="breed" value="${pet.breed || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <input type="text" id="breed" value="${pet.breed || ''}" required maxlength="24" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <div class="text-xs text-right text-gray-400"><span id="breedCount">${pet.breed?.length || 0}</span>/24</div>
           </label>
           <label class="text-base text-primary font-roboto">Age
             <input type="number" id="age" value="${pet.age || ''}" required min="0" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
           </label>
           <label class="text-base text-primary font-roboto">Gender
-            <input type="text" id="gender" value="${pet.gender || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <select id="gender" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto">
+              <option value="">Select gender</option>
+              <option value="male" ${pet.gender === 'male' ? 'selected' : ''}>Male</option>
+              <option value="female" ${pet.gender === 'female' ? 'selected' : ''}>Female</option>
+              <option value="unknown" ${pet.gender === 'unknown' ? 'selected' : ''}>Unknown</option>
+            </select>
           </label>
           <label class="text-base text-primary font-roboto">Size
-            <input type="text" id="size" value="${pet.size || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <input type="text" id="size" value="${pet.size || ''}" required placeholder="23kg" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
           </label>
           <label class="text-base text-primary font-roboto">Color
-            <input type="text" id="color" value="${pet.color || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <input type="text" id="color" value="${pet.color || ''}" required maxlength="18" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <div class="text-xs text-right text-gray-400"><span id="colorCount">${pet.color?.length || 0}</span>/18</div>
           </label>
           <label class="text-base text-primary font-roboto">Location
-            <input type="text" id="location" value="${pet.location || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <input type="text" id="location" value="${pet.location || ''}" required maxlength="20" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <div class="text-xs text-right text-gray-400"><span id="locationCount">${pet.location?.length || 0}</span>/20</div>
           </label>
           <label class="text-base text-primary font-roboto">Adoption Status
             <select id="adoptionStatus" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto">
@@ -59,14 +69,15 @@ export async function renderPetEdit(id) {
             </select>
           </label>
           <label class="text-base text-primary font-roboto">Description
-            <textarea id="description" maxlength="160" rows="3" required class="w-full mt-1 rounded-2xl border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto">${pet.description || ''}</textarea>
-            <div class="text-xs text-right text-gray-400"><span id="descCount">${pet.description?.length || 0}</span>/160</div>
+            <textarea id="description" maxlength="1000" rows="3" required class="w-full mt-1 rounded-2xl border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto">${pet.description || ''}</textarea>
+            <div class="text-xs text-right text-gray-400"><span id="descCount">${pet.description?.length || 0}</span>/1000</div>
           </label>
           <label class="text-base text-primary font-roboto">Image URL
             <input type="url" id="imageUrl" value="${pet.image?.url || ''}" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
           </label>
           <label class="text-base text-primary font-roboto">Alt
             <input type="text" id="imageAlt" value="${pet.image?.alt || ''}" required maxlength="120" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+            <div class="text-xs text-right text-gray-400"><span id="altCount">${pet.image?.alt?.length || 0}</span>/120</div>
           </label>
           <div class="flex gap-4 mt-4">
             <button type="submit" class="flex-1 bg-accent text-white rounded-full py-2 font-roboto text-lg hover:bg-secondary transition">Update post</button>
@@ -82,6 +93,55 @@ export async function renderPetEdit(id) {
     if (desc && descCount) {
       desc.addEventListener('input', () => {
         descCount.textContent = desc.value.length;
+      });
+    }
+
+    // character counters
+    const name = document.getElementById('name');
+    const nameCount = document.getElementById('nameCount');
+    if (name && nameCount) {
+      name.addEventListener('input', () => {
+        nameCount.textContent = name.value.length;
+      });
+    }
+
+    const species = document.getElementById('species');
+    const speciesCount = document.getElementById('speciesCount');
+    if (species && speciesCount) {
+      species.addEventListener('input', () => {
+        speciesCount.textContent = species.value.length;
+      });
+    }
+
+    const breed = document.getElementById('breed');
+    const breedCount = document.getElementById('breedCount');
+    if (breed && breedCount) {
+      breed.addEventListener('input', () => {
+        breedCount.textContent = breed.value.length;
+      });
+    }
+
+    const color = document.getElementById('color');
+    const colorCount = document.getElementById('colorCount');
+    if (color && colorCount) {
+      color.addEventListener('input', () => {
+        colorCount.textContent = color.value.length;
+      });
+    }
+
+    const location = document.getElementById('location');
+    const locationCount = document.getElementById('locationCount');
+    if (location && locationCount) {
+      location.addEventListener('input', () => {
+        locationCount.textContent = location.value.length;
+      });
+    }
+
+    const imageAlt = document.getElementById('imageAlt');
+    const altCount = document.getElementById('altCount');
+    if (imageAlt && altCount) {
+      imageAlt.addEventListener('input', () => {
+        altCount.textContent = imageAlt.value.length;
       });
     }
 
@@ -104,7 +164,7 @@ export async function renderPetEdit(id) {
       const imageAlt = document.getElementById('imageAlt').value.trim();
 
       // Validation (same as create)
-      if (!name || !species || !breed || !size || !color || !description || !imageUrl || !imageAlt || !gender || !location) {
+      if (!name || !species || !breed || !color || !description || !imageUrl || !imageAlt || !gender || !location) {
         showModal('All fields are required.');
         return;
       }
@@ -112,8 +172,37 @@ export async function renderPetEdit(id) {
         showModal('Age must be a non-negative number.');
         return;
       }
-      if (description.length > 160) {
-        showModal('Description must be less than 160 characters.');
+      if (size.length === 0) {
+        showModal('Size must be provided.');
+        return;
+      }
+      const sizeNumber = parseFloat(size);
+      if (isNaN(sizeNumber) || sizeNumber < 0 || sizeNumber > 200) {
+        showModal('Size must be a number between 0 and 200 kg.');
+        return;
+      }
+      if (name.length > 18) {
+        showModal('Name must be 18 characters or less.');
+        return;
+      }
+      if (species.length > 18) {
+        showModal('Species must be 18 characters or less.');
+        return;
+      }
+      if (breed.length > 24) {
+        showModal('Breed must be 24 characters or less.');
+        return;
+      }
+      if (color.length > 18) {
+        showModal('Color must be 18 characters or less.');
+        return;
+      }
+      if (location.length > 20) {
+        showModal('Location must be 20 characters or less.');
+        return;
+      }
+      if (description.length > 1000) {
+        showModal('Description must be less than 1000 characters.');
         return;
       }
       if (!/^https?:\/\/.+\..+/.test(imageUrl)) {
