@@ -1,5 +1,6 @@
 import { renderNavbar, removeNavbar } from '../components/navbar.js';
 import { showModal } from '../components/modal.js';
+import { renderSpinner } from '../components/spinner.js';
 
 export function renderLogin() {
   const app = document.getElementById('app');
@@ -30,6 +31,7 @@ export function renderLogin() {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorDiv.textContent = '';
+      
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
       try {

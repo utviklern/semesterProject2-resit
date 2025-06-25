@@ -1,5 +1,6 @@
 import { showModal } from '../components/modal.js';
 import { getToken } from '../services/auth.js';
+import { renderSpinner } from '../components/spinner.js';
 
 export function renderPetCreate() {
   // redirect to login if not authenticated
@@ -163,8 +164,8 @@ export function renderPetCreate() {
     }
 
     const sizeNumber = parseFloat(size);
-    if (isNaN(sizeNumber) || sizeNumber < 0 || sizeNumber > 200) {
-      showModal('Size must be a number between 0 and 200 kg.');
+    if (isNaN(sizeNumber) || sizeNumber < 0 || sizeNumber > 999) {
+      showModal('Size must be a number between 0 and 999 kg.');
       return;
     }
     if (name.length > 18) {

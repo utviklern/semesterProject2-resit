@@ -1,5 +1,6 @@
 import { showModal } from '../components/modal.js';
 import { getToken } from '../services/auth.js';
+import { renderSpinner } from '../components/spinner.js';
 
 export async function renderProfile() {
   // redirect to login if not authenticated
@@ -11,7 +12,7 @@ export async function renderProfile() {
 
   const app = document.getElementById('app');
   app.className = "flex-1 flex flex-col items-center justify-center px-2";
-  app.innerHTML = `<div class="text-center text-lg font-roboto">Loading...</div>`;
+  app.innerHTML = renderSpinner();
 
   try {
     // get user profile from localStorage

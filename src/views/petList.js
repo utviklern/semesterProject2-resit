@@ -1,4 +1,5 @@
 import { showModal } from '../components/modal.js';
+import { renderSpinner } from '../components/spinner.js';
 
 let allPets = [];
 let filteredPets = [];
@@ -15,7 +16,7 @@ export async function renderPetList() {
         <input id="searchInput" type="text" placeholder="search" class="w-full max-w-md rounded-full border border-secondary px-4 py-2 text-center text-xl font-poppins text-gray-400" />
       </div>
       <h2 class="text-2xl font-poppins mb-6">Available pets</h2>
-      <div id="petGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+      <div id="petGrid" class="grid grid-cols-2 md:grid-cols-4 gap-6">${allPets.length === 0 ? renderSpinner() : ''}</div>
       <div class="flex justify-center mt-8">
         <button id="loadMoreBtn" class="bg-accent text-white rounded-full py-2 px-8 font-roboto text-lg hover:bg-secondary transition">Load more</button>
       </div>
@@ -46,7 +47,13 @@ export async function renderPetList() {
 
   const loadMoreBtn = document.getElementById('loadMoreBtn');
   loadMoreBtn.addEventListener('click', () => {
-    renderPets();
+    loadMoreBtn.innerHTML = renderSpinner();
+    loadMoreBtn.disabled = true;
+    setTimeout(() => {
+      renderPets();
+      loadMoreBtn.innerHTML = 'Load more';
+      loadMoreBtn.disabled = false;
+    }, 100);
   });
 
   // search functionality

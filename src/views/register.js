@@ -1,4 +1,5 @@
 import { showModal } from '../components/modal.js';
+import { renderSpinner } from '../components/spinner.js';
 
 export function renderRegister() {
   const app = document.getElementById('app');
@@ -8,13 +9,16 @@ export function renderRegister() {
       <h1 class="text-3xl font-light mb-6 text-center text-primary font-poppins">Register</h1>
       <form id="registerForm" class="flex flex-col gap-4">
         <label class="text-base text-primary font-roboto">Username
-          <input type="text" id="name" required pattern="^[A-Za-z0-9_]+$" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="text" id="name" required pattern="^[A-Za-z0-9_]+$" title="Username can only contain letters, numbers and underscores" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">E-mail
-          <input type="email" id="email" required class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+          <input type="email" id="email" required pattern=".*@stud\.noroff\.no$" title="Email must be a valid stud.noroff.no address" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">Password
           <input type="password" id="password" required minlength="8" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
+        </label>
+        <label class="text-base text-primary font-roboto">Confirm Password
+          <input type="password" id="confirmPassword" required minlength="8" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
         </label>
         <label class="text-base text-primary font-roboto">Avatar Url
           <input type="url" id="avatarUrl" class="w-full mt-1 rounded-full border border-secondary px-4 py-2 bg-beige focus:outline-none focus:ring-2 focus:ring-accent font-roboto" />
@@ -43,32 +47,50 @@ export function renderRegister() {
   const form = document.getElementById('registerForm');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // get values
+
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
     const avatarUrl = document.getElementById('avatarUrl').value.trim();
-    const bioVal = document.getElementById('bio').value.trim();
+    const bio = document.getElementById('bio').value.trim();
 
     // validation
+    if (!name || !email || !password || !confirmPassword) {
+      showModal('All fields are required.');
+      return;
+    }
+    
+    // Username validation - letters, numbers, underscores only
     if (!/^[A-Za-z0-9_]+$/.test(name)) {
       showModal('Username can only contain letters, numbers and underscores.');
       return;
     }
+    
+    // Email validation - must be stud.noroff.no
     if (!email.endsWith('@stud.noroff.no')) {
       showModal('Email must be a valid stud.noroff.no address.');
       return;
     }
+    
+    if (password !== confirmPassword) {
+      showModal('Passwords do not match.');
+      return;
+    }
     if (password.length < 8) {
-      showModal('Password must be at least 8 characters.');
+      showModal('Password must be at least 8 characters long.');
       return;
     }
-    if (bioVal.length > 160) {
-      showModal('Bio must be less than 160 characters.');
-      return;
-    }
+
+    // avatar URL validation
     if (avatarUrl && !/^https?:\/\/.+\..+/.test(avatarUrl)) {
       showModal('Avatar URL must be a valid URL.');
+      return;
+    }
+
+    // bio validation
+    if (bio && bio.length > 160) {
+      showModal('Bio must be less than 160 characters.');
       return;
     }
 
@@ -78,7 +100,9 @@ export function renderRegister() {
       email,
       password
     };
-    if (bioVal) body.bio = bioVal;
+    
+    // add optional fields if provided
+    if (bio) body.bio = bio;
     if (avatarUrl) body.avatar = { url: avatarUrl, alt: '' };
 
     try {
@@ -93,13 +117,19 @@ export function renderRegister() {
       });
       if (!response.ok) {
         const data = await response.json();
-        showModal(data.errors?.[0]?.message || 'Registration failed.');
+        console.log('Registration error:', data); // Debug log
+        const errorMessage = data.errors?.[0]?.message || data.message || 'Registration failed.';
+        showModal(errorMessage);
         return;
       }
       // success
-      window.location.hash = '#/account/login';
+      showModal('Registration successful! Redirecting to login...');
+      setTimeout(() => {
+        window.location.hash = '#/account/login';
+      }, 1500);
     } catch (err) {
-      showModal('Registration failed. Try again.');
+      console.log('Registration catch error:', err); // Debug log
+      showModal('Registration failed. Please check your connection and try again.');
     }
   });
 }

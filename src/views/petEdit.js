@@ -1,5 +1,6 @@
 import { showModal } from '../components/modal.js';
 import { getToken } from '../services/auth.js';
+import { renderSpinner } from '../components/spinner.js';
 
 export async function renderPetEdit(id) {
   // Redirect to login if not authenticated
@@ -11,7 +12,7 @@ export async function renderPetEdit(id) {
 
   const app = document.getElementById('app');
   app.className = "flex-1 flex flex-col items-center justify-center px-2";
-  app.innerHTML = `<div class="text-center text-lg font-roboto">Loading...</div>`;
+  app.innerHTML = renderSpinner();
 
   try {
     const { API_KEY } = await import('../services/config.js');
@@ -149,6 +150,7 @@ export async function renderPetEdit(id) {
     const form = document.getElementById('editPetForm');
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
       // Get form values
       const name = document.getElementById('name').value.trim();
       const species = document.getElementById('species').value.trim();
@@ -177,8 +179,8 @@ export async function renderPetEdit(id) {
         return;
       }
       const sizeNumber = parseFloat(size);
-      if (isNaN(sizeNumber) || sizeNumber < 0 || sizeNumber > 200) {
-        showModal('Size must be a number between 0 and 200 kg.');
+      if (isNaN(sizeNumber) || sizeNumber < 0 || sizeNumber > 999) {
+        showModal('Size must be a number between 0 and 999 kg.');
         return;
       }
       if (name.length > 18) {

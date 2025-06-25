@@ -1,9 +1,10 @@
 import { showModal } from '../components/modal.js';
+import { renderSpinner } from '../components/spinner.js';
 
 export async function renderPetDetail(id) {
   const app = document.getElementById('app');
   app.className = "flex-1 flex flex-col items-center justify-center px-2";
-  app.innerHTML = `<div class="text-center text-lg font-roboto">Loading...</div>`;
+  app.innerHTML = renderSpinner();
 
   try {
     const { API_KEY } = await import('../services/config.js');
@@ -34,6 +35,11 @@ export async function renderPetDetail(id) {
               <span class="block md:inline">Status: <span class="font-semibold">${pet.adoptionStatus || '-'}</span></span>
             </div>
           </div>
+          <button id="shareBtn" class="bg-accent text-white rounded-full p-3 hover:bg-secondary transition" title="Share this pet">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+            </svg>
+          </button>
         </div>
         <h2 class="text-2xl font-poppins mb-4 text-center md:text-left break-words">Description</h2>
         <div class="bg-white rounded-xl shadow-md p-6 mb-8 font-roboto text-base text-gray-800 whitespace-pre-line break-words overflow-wrap-anywhere text-center md:text-left">${pet.description || ''}</div>
@@ -48,6 +54,26 @@ export async function renderPetDetail(id) {
         </div>
       </div>
     `;
+
+    // share functionality
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+      shareBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showModal('Link copied to clipboard!');
+        } catch (err) {
+          // fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = window.location.href;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          showModal('Link copied to clipboard!');
+        }
+      });
+    }
   } catch (err) {
     showModal('Failed to load pet details. Try again.');
   }
