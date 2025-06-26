@@ -69,7 +69,7 @@ A pet adoption organization needed a modern platform where:
 
 - HTML validated with W3C Validator
 - Tested with Lighthouse and WAVE
-- Deployed on Netlify: *https://bejewelled-flan-
+- Deployed on Netlify: *https://bejewelled-flan-8f7d7b.netlify.app*
 
 ## Requirements Checklist
 
